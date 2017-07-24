@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import './'
+import '../'
 
 class Card extends Component{
   render(){
@@ -15,7 +14,7 @@ class Card extends Component{
   }
 }
 
-class App extends Component {
+class First extends Component {
 
   // constructor(props){
   //     super(props);
@@ -167,4 +166,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default First;

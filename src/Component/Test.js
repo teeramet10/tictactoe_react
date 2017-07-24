@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import './'
+import '../'
 
 const data = [
             { category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" },
@@ -146,4 +146,4 @@ class ProductRow extends Component{
     }
 }
 
-export default FilterableProductTable;
+export default FilterableProductTable

@@ -62,3 +62,40 @@ table, td{
   float: left;
   margin: 10px;
 }
+
+.head{
+  font-size: 30px;
+  background-color: #102143;
+  color: white;
+  padding: 10px;
+  height: 50px;
+}
+
+.formlogin-container{
+
+}
+.container{
+  padding: 8px;
+}
+
+button {
+    background-color:#09b;
+    color: wheat;
+    padding: 15px;
+    margin: 8px 0;
+    border: none;
+    align-content: center;
+    cursor: pointer;
+    width: 50%;
+}
+butoon:hover{
+ opacity: 0.8px;
+}
+
+input[type=text]{
+  width: 50%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  margin: 8px;
+  display: inline-block;
+}

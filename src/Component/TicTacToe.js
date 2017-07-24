@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import './';
+import '../';
 
 function checkTicTacToe(value){
     const lines = [
