@@ -16,8 +16,8 @@ function checkTicTacToe(value){
     let check=false;
     console.log(value);
     for (var i= 0; i < lines.length; i++) {
-        if((value[lines[i][0]]=='x' && value[lines[i][1]]=='x' && value[lines[i][2]]=='x')||
-            (value[lines[i][0]]=='o' && value[lines[i][1]]=='o' && value[lines[i][2]]=='o')){
+        if((value[lines[i][0]]==='x' && value[lines[i][1]]==='x' && value[lines[i][2]]==='x')||
+            (value[lines[i][0]]==='o' && value[lines[i][1]]==='o' && value[lines[i][2]]==='o')){
             check =true
             
         }

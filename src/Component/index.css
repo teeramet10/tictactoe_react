@@ -22,6 +22,7 @@ body {
 }
 table, td{
   border: 1px black solid;
+  align-content: center;
 }
 .tablebox{
   width: 200px;
@@ -39,9 +40,9 @@ table, td{
 
 .square{
   color: black;
-  font-size: 30px;
+  font-size: 20px;
   background-color: white;
-  border: 1 solid black;
+  border: 1px solid black;
   width: 50px;
   height: 50px;
   margin: 0 0 0 0;
@@ -81,7 +82,7 @@ table, td{
 button {
     background-color:#09b;
     color: wheat;
-    padding: 15px;
+    padding: 10px;
     margin: 8px 0;
     border: none;
     align-content: center;
@@ -92,10 +93,51 @@ butoon:hover{
  opacity: 0.8px;
 }
 
-input[type=text]{
+input[type=text] ,input[type=password]{
   width: 50%;
   padding: 5px;
   border: 1px solid #ccc;
   margin: 8px;
   display: inline-block;
+}
+
+.shiptable{
+  font-size:12px;
+  border: 1px solid black;
+  margin: 5px;
+  border-collapse: collapse;
+}
+
+th{
+  color: white;
+  background-color: #09b;
+}
+
+.react-paginate ul {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.react-paginate li {
+    display: inline-block;
+    padding: 5px;
+    margin :5px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.active{
+   color: #09b;
+    background-color:#09b;
+
+ 
+}
+
+.container-list{
+  height: 450px;
+  overflow: scroll
+}
+.container-paginate {
+  
 }

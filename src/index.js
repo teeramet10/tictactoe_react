@@ -1,14 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Route, Router, Link, HashRouter, BrowserRouter,Switch } from 'react-router-dom'
-import createHashHistory from 'history/createHashHistory'
-import './Component/index.css'
-import Login from './Component/Login'
+import {BrowserRouter} from 'react-router-dom'
 import App from './Component/App'
-import First from './Component/First'
-import Game from './Component/TicTacToe'
-import NotFound from './Component/NotFound'
-import FilterableProductTable from './Component/Test'
+import './Component/index.css'
 // import {First,Game,FilterableProductTable,NotFound} from './Component'
 import registerServiceWorker from './registerServiceWorker';
 
