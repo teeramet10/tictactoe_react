@@ -93,7 +93,7 @@ butoon:hover{
  opacity: 0.8px;
 }
 
-input[type=text] ,input[type=password]{
+input[type=text] ,input[type=password],input[type=number]{
   width: 50%;
   padding: 5px;
   border: 1px solid #ccc;
@@ -140,4 +140,20 @@ th{
 }
 .container-paginate {
   
+}
+
+.formsearch{
+  display: inline-block;
+}
+
+
+.content{
+  background: #EEE;
+  width: 70%;
+  height: 100%;
+  position: absolute;
+  left: 30%;
+  padding: 10 10 10 10;
+
+ 
 }

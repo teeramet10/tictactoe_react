@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom'
-// import {First,Game,FilterableProductTable,NotFound} from './Component'
-import First from './First'
-import Game from './TicTacToe'
-import NotFound from './NotFound'
-import FilterableProductTable from './Test'
-import Login from './Login'
-import PageShipList from './ShipList'
-import Table from './ShowData'
+
+import First from '../Component/First'
+import Game from '../Component/TicTacToe'
+import FilterableProductTable from '../Component/Test'
+import Login from '../Component/Login'
+import PageShipList from '../Component/ShipList'
+import Table from '../Component/ShowData'
+import StoreState from '../Component/StoreState'
+
 import './App.css';
 import '../'
 
@@ -21,7 +22,7 @@ function Main() {
     <Route path="/test" component={FilterableProductTable} />
     <Route path="/showdata" component={Table} />
     <Route path ="/shiplist" component={PageShipList}/>
-    <Route component={NotFound} />
+    <Route path="/redux" component ={StoreState}/>
   </Switch>)
 }
 
@@ -45,6 +46,7 @@ class App extends Component {
             <li><Link className={styles} to="/test">Test</Link></li>
             <li><Link className={styles} to="/showdata">ShowData</Link></li>
             <li><Link className={styles} to="/shiplist">ShipList</Link></li>
+            <li><Link className={styles} to="/redux">StoreState</Link></li>
           </ul>
         </div>
         <div className="content">
