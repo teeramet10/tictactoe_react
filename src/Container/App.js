@@ -7,7 +7,7 @@ import FilterableProductTable from '../Component/Test'
 import Login from '../Component/Login'
 import PageShipList from '../Component/ShipList'
 import Table from '../Component/ShowData'
-import StoreState from '../Component/StoreState'
+import TestReduxForm from '../Component/TestReduxForm'
 
 import './App.css';
 import '../'
@@ -22,7 +22,7 @@ function Main() {
     <Route path="/test" component={FilterableProductTable} />
     <Route path="/showdata" component={Table} />
     <Route path ="/shiplist" component={PageShipList}/>
-    <Route path="/redux" component ={StoreState}/>
+    <Route path="/redux" component ={TestReduxForm}/>
   </Switch>)
 }
 
@@ -46,7 +46,7 @@ class App extends Component {
             <li><Link className={styles} to="/test">Test</Link></li>
             <li><Link className={styles} to="/showdata">ShowData</Link></li>
             <li><Link className={styles} to="/shiplist">ShipList</Link></li>
-            <li><Link className={styles} to="/redux">StoreState</Link></li>
+            <li><Link className={styles} to="/redux">TestReduxForm</Link></li>
           </ul>
         </div>
         <div className="content">

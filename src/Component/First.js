@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import '../'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import * as action from '../action/first.action'
 
-class Card extends Component{
-  render(){
-    return(
+class Card extends Component {
+  render() {
+    return (
       <div className="card">
         <h2>{this.props.name}</h2>
         <h5>{this.props.job}</h5>
@@ -21,59 +24,39 @@ class First extends Component {
   // }
 
 
-  constructor(props){
-    super(props);
-   this.state ={name:'',
-      job:'',
-      keyword:'',
-      data:[
-        {
-           "name" :"yumi",
-        "job" :"programmer"
-        },
-       {
-        "name":"nami",
-        "job" :"navigator"
-       }
-      ]
-   }
-   
-  
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(), 1000
+    );
+    console.log("lifecycle", "componentDidmount");
   }
 
-  componentDidMount(){
-      this.timerID=setInterval(
-        () =>this.tick(),1000
-      );
-       console.log("lifecycle","componentDidmount");
-  }
-
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearInterval(this.timerID);
-    console.log("lifecycle","componentWillUnmount");
+    console.log("lifecycle", "componentWillUnmount");
   }
 
-  tick(){
+  tick() {
     this.setState({
-      date:new Date()
+      date: new Date()
     });
   }
   //ES6
-  handleClick=()=>{
+  handleClick = () => {
     alert("aa");
   }
   //ES5
-  showAlert(){
+  showAlert() {
     alert("aa");
   }
 
-  UserList(users){
-   
-    const list  =users.map((user)=>
+  UserList(users) {
+
+    const list = users.map((user) =>
       <Card key={user.name} value={user.name} job={user.job} />
     );
 
-    return  list;
+    return list;
   }
 
   // NumberList(props){
@@ -85,40 +68,42 @@ class First extends Component {
   //   return <ul>{listItems}</ul>;
   // }
 
-    handleChangeName=(e)=>{
-      this.setState({name:e.target.value})
-    }
+  handleChangeName = (e) => {
+    // this.setState({ name: e.target.value })
+    this.props.action.changeName(e.target.value)
+  }
 
-    handleSearch=(e)=>{
-      this.setState({keyword:e.target.value})
-    
-  
-    }
+  handleSearch = (e) => {
+    // this.setState({ keyword: e.target.value })
+    this.props.action.onSearch(e.target.value)
+  }
 
-    handleChangeJob=(e)=>{
-      this.setState({job:e.target.value})
-    }
+  handleChangeJob = (e) => {
+    // this.setState({ job: e.target.value })
+    this.props.action.changeJob(e.target.value)
+  }
 
-    showAlertState=()=>{
-      alert(this.state.name);
-    }
+  showAlertState = () => {
+    alert(this.state.name);
+  }
 
 
-    inputData=()=>{
-      if(this.state.name !=='' && this.state.job!==''){
-        this.state.data.push({
-          "name": this.state.name,
-          "job" :this.state.job
-        });
-      }
-        this.state.name='';
-        this.state.job='';
+  inputData = () => {
+    if (this.props.first.name !== '' && this.props.first.job !== '') {
+      this.props.first.data.push({
+        "name": this.props.first.name,
+        "job": this.props.first.job
+      });
     }
-   
-    search= (a)=> {return a.name.indexOf(this.state.keyword)>=0}
+    this.props.action.changeName('')
+    this.props.action.changeJob('')
+
+  }
+
+  search = (a) => { return a.name.indexOf(this.props.first.keyword) >= 0 }
 
   render() {
-    
+
     // const random =Math.random();
     // let result;
 
@@ -127,15 +112,16 @@ class First extends Component {
     // }else{
     //   result=(<h1>less than 0.5</h1>)
     // }
-    const key =this.state.keyword;
-    let data =this.state.data;
-    if(key!=''){
-      data =data.filter(this.search)
+    const first =this.props.first
+    const key = first.keyword;
+    let data = first.data;
+    if (key != '') {
+      data = data.filter(this.search)
     }
-   
-    
+
+
     return (
-      
+
       //   <div className="App-header">
       //     <img src={logo} className="App-logo" alt="logo" />
       //     <h2>Welcome to React</h2>
@@ -148,21 +134,34 @@ class First extends Component {
       //   }
       //   <button onClick={this.showAlert}>Click</button>
 
-      
+
       <div className="App">
-        <input type="text" value={this.state.name} onChange={this.handleChangeName}/>
-        <input type="text" value={this.state.job} onChange={this.handleChangeJob}/>
-        <button onClick ={this.inputData}>Click </button>
-        <input type="text" value={this.state.keyword} onChange={this.handleSearch}/>
-  
+        <input type="text" value={first.name} onChange={this.handleChangeName} />
+        <input type="text" value={first.job} onChange={this.handleChangeJob} />
+        <button onClick={this.inputData}>Click </button>
+        <input type="text" value={first.keyword} onChange={this.handleSearch} />
+
         <p>
-        {this.UserList(data)}
-        
-   
+          {this.UserList(data)}
+
+
         </p>
       </div>
     );
   }
 }
 
-export default First;
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    first: state.first
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    action:bindActionCreators(action,dispatch)
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(First);

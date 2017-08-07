@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import '../'
+import {connect} from "react-redux"
+import {bindActionCreators} from 'redux'
+import * as action from '../action/test.action'
 
 const data = [
             { category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" },
@@ -22,24 +25,24 @@ class FilterableProductTable extends Component {
     }
 
      handleFilterTextChange(filterText){
-         this.setState({filter:filterText})
+         this.props.action.filterText(filterText)
      }
 
      handleInStockChange(inStock){
-         this.setState({inStock:inStock})
+         this.props.action.inStock(inStock)
      }
      render() {
-
+        const {test}=this.props
         
         return (
             <div className="App">
-            <SearchBar filter={this.state.filter}
-                    inStock ={this.state.inStock}
+            <SearchBar filter={test.filter}
+                    inStock ={test.inStock}
                     eventFilter={this.handleFilterTextChange}
                     eventCheckStock={this.handleInStockChange}/>
             <ProductTable products={data} 
-                        filter ={this.state.filter} 
-                        inStock={this.state.inStock}/>
+                        filter ={test.filter} 
+                        inStock={test.inStock}/>
             </div>
         );
     }
@@ -145,4 +148,16 @@ class ProductRow extends Component{
     }
 }
 
-export default FilterableProductTable
+const mapStateToProps = (state, ownProps) => {
+    return {
+        test: state.test
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        action:bindActionCreators(action,dispatch)
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(FilterableProductTable)

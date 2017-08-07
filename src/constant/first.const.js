@@ -1,0 +1,3 @@
+export const CHANGENAME ='CHANGENAME'
+export const ONSEARCH='ONSEARCH'
+export const CHANGEJOB='CHANGEJOB'

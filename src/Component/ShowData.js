@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import '../'
+import * as action from '../action/showdata.action'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 
 
 /*global firebase */
@@ -16,7 +19,7 @@ class BodyTable extends Component {
     render() {
         return (
             <tr>
-            
+
                 <td>{this.props.id}</td>
                 <td>{this.props.name}</td>
             </tr>
@@ -48,8 +51,8 @@ class Table extends Component {
 
         const ref = firebase.database().ref('/student')
         ref.on('value', (snapshot) => {
-            this.setState({ student: snapshot.val() })
-            console.log(snapshot.val());
+            this.props.action.setStudent(snapshot.val())
+ 
         });
     }
 
@@ -57,19 +60,35 @@ class Table extends Component {
 
     render() {
         const row = [];
-        this.state.student.forEach((students) => {
+        this.props.showdata.student.forEach((students) => {
             row.push(<BodyTable key={students.id} name={students.name} id={students.id} />)
         }, this);
+
+        // this.state.student.forEach((students) => {
+        //     row.push(<BodyTable key={students.id} name={students.name} id={students.id} />)
+        // }, this);
 
         return (
             <center><table style={{ margin: 10 }}>
                 <HeadTable />
                 <tbody>
-                {row}
+                    {row}
                 </tbody>
             </table></center>
         )
     }
 }
 
-export default Table
+const mapDispatchToProps = (dispatch) => {
+    return {
+       action: bindActionCreators(action, dispatch)
+    }
+}
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        showdata: state.showdata
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Table)

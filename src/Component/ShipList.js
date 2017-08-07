@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import '../'
 import ReactPaginate from 'react-paginate'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as action from '../action/ship.action'
 
 function HeadShipTable() {
     return (
@@ -40,6 +43,7 @@ class ShipList extends Component {
 
     render() {
         const shiplist = this.props.shiplist;
+
         return (
 
             <table className="shiptable">
@@ -82,17 +86,17 @@ class BodyShipTable extends Component {
 class PageShipList extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            items: [],
-            offset: 1,
-            totalrecord:1,
-            filter: {
-                shipname: '',
-                shipregisterno: '',
-                shipownername: ''
-            }
+        // this.state = {
+        //     items: [],
+        //     offset: 1,
+        //     totalrecord:1,
+        //     filter: {
+        //         shipname: '',
+        //         shipregisterno: '',
+        //         shipownername: ''
+        //     }
 
-        }
+        // }
 
         this.onFilterText = this.onFilterText.bind(this)
         this.onChangePage = this.onChangePage.bind(this)
@@ -101,19 +105,18 @@ class PageShipList extends Component {
     componentDidMount() {
         this.loadData()
 
-
     }
     loadData() {
-        let offset = this.state.offset
-        let filter = this.state.filter
+        let offset = this.props.ship.offset
+        let filter = this.props.ship.filter
         // let url='http://164.115.27.232:9981/api/ShipList/' + offset + '/20?userKey=25'
         let url = 'http://164.115.27.232:9981/api/ShipList/0/20?userKey=25&shipName=' +
             filter.shipname + '&shipRegisterNo=' + filter.shipregisterno + '&shipOwnerName=' + filter.shipownername
         console.log(url)
         Axios.get(url)
             .then((response) => {
-                this.setState({ items: response.data.data, totalrecord:response.data.totalRecord});
-
+                this.props.action.setItem(response.data.data)
+                this.props.action.setRecord(response.data.totalRecord)
             })
             .catch((error) => {
                 console.log(error);
@@ -121,7 +124,7 @@ class PageShipList extends Component {
     }
 
     onFilterText(value) {
-        this.setState({ filter: value })
+        this.props.action.filterTextShip(value)
         this.loadData()
     }
 
@@ -130,26 +133,28 @@ class PageShipList extends Component {
     onChangePage(data) {
         let select = data.selected;
         let offset = Math.ceil(select * 20)
-        console.log(offset);
-        this.setState({ offset: offset })
+        this.props.action.changeOffset(offset)
 
         this.loadData()
     }
 
-    render() {
-
+    render() {   
+        const ship =this.props.ship
+               console.log(ship)
         return (
+
+         
             <div className="commentBox">
                 <div className="container-list">
-                    <SearchShip filter={this.state.filter} eventFilter={this.onFilterText} />
-                    <ShipList shiplist={this.state.items} startvalue={this.state.offset == 1 ? 1 : this.state.offset + 1} key={100} />
+                    <SearchShip filter={ship.filter} eventFilter={this.onFilterText} />
+                    <ShipList shiplist={ship.items} startvalue={ship.offset == 1 ? 1 : ship.offset + 1} key={100} />
                 </div>
                 <div className="container-paginate">
                     <ReactPaginate
                         previousLabel={"previous"}
                         nextLabel={"next"}
                         breakClassName={"break-me"}
-                        pageCount={Math.ceil(this.state.totalrecord/20)}
+                        pageCount={Math.ceil(ship.totalrecord/20)}
                         marginPagesDisplayed={5}
                         disableInitialCallback={false}
                         onPageChange={this.onChangePage}
@@ -177,7 +182,9 @@ class SearchShip extends Component {
     }
 
     render() {
+        const filter =this.props.filter
 
+        console.log(filter)
         return (
             <div className="formsearch">
                 <input type="text" placeholder="ชื่อเรือ"
@@ -195,4 +202,17 @@ class SearchShip extends Component {
     }
 }
 
-export default PageShipList
+
+const mapStateToProps = (state, ownProps) => {
+ 
+    return {
+        ship:state.ship
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        action:bindActionCreators(action,dispatch)
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(PageShipList)
